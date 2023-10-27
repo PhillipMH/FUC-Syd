@@ -1,8 +1,12 @@
+using FUC_Syd.Domain.Data;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore.Design;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

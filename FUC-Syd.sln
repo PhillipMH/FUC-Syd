@@ -5,6 +5,10 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FUC-Syd", "FUC-Syd\FUC-Syd.csproj", "{63FBBEE1-8EDA-42F3-B2B5-F4E17ADA182E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FUC-Syd.Domain", "FUC-Syd.Domain\FUC-Syd.Domain.csproj", "{CF04181E-2B25-41B8-BD19-9DCDB70CA9FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FUC-Syd.Services", "FUC-Syd.Services\FUC-Syd.Services.csproj", "{A7F8B825-683A-412D-A830-D3A2B6BC670C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{63FBBEE1-8EDA-42F3-B2B5-F4E17ADA182E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63FBBEE1-8EDA-42F3-B2B5-F4E17ADA182E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63FBBEE1-8EDA-42F3-B2B5-F4E17ADA182E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF04181E-2B25-41B8-BD19-9DCDB70CA9FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF04181E-2B25-41B8-BD19-9DCDB70CA9FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF04181E-2B25-41B8-BD19-9DCDB70CA9FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF04181E-2B25-41B8-BD19-9DCDB70CA9FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7F8B825-683A-412D-A830-D3A2B6BC670C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F8B825-683A-412D-A830-D3A2B6BC670C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7F8B825-683A-412D-A830-D3A2B6BC670C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7F8B825-683A-412D-A830-D3A2B6BC670C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
