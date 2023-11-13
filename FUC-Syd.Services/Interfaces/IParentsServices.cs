@@ -1,4 +1,4 @@
-﻿using FUC_Syd.Services.DataTransferObjects;
+﻿using FUC_Syd.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FUC_Syd.Services.Interfaces
 {
-    public interface IParentsServices : IGenericServices<ParentsDTO>
+    public interface IParentsServices : IGenericServices<Parents>
     {
     }
 }

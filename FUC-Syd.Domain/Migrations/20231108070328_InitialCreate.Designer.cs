@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FUC_Syd.Domain.Migrations
 {
     [DbContext(typeof(FUC_SydContext))]
-    [Migration("20231027060817_Created")]
-    partial class Created
+    [Migration("20231108070328_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,6 +135,10 @@ namespace FUC_Syd.Domain.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("unilogin")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

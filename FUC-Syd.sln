@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FUC-Syd", "FUC-Syd\FUC-Syd.csproj", "{63FBBEE1-8EDA-42F3-B2B5-F4E17ADA182E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FUC-Syd", "FUC-Syd\FUC-Syd.csproj", "{63FBBEE1-8EDA-42F3-B2B5-F4E17ADA182E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FUC-Syd.Domain", "FUC-Syd.Domain\FUC-Syd.Domain.csproj", "{CF04181E-2B25-41B8-BD19-9DCDB70CA9FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FUC-Syd.Domain", "FUC-Syd.Domain\FUC-Syd.Domain.csproj", "{CF04181E-2B25-41B8-BD19-9DCDB70CA9FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FUC-Syd.Services", "FUC-Syd.Services\FUC-Syd.Services.csproj", "{A7F8B825-683A-412D-A830-D3A2B6BC670C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FUC-Syd.Services", "FUC-Syd.Services\FUC-Syd.Services.csproj", "{A7F8B825-683A-412D-A830-D3A2B6BC670C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

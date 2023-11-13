@@ -1,0 +1,33 @@
+﻿@page
+@model FUC_Syd.Pages.AddStudentModel
+@{
+}
+<form method="post">
+    <h3 class="text-center">New student</h3>
+    <div class="container w-25 mt-4">
+        <div class="mb-2">
+            <span class="form-label">Firstname</span>
+            <input type="text" class="form-control mt-1" asp-for="firstname"/>
+        </div>
+        <div class="mb-2">
+            <span class="form-label">Lastname</span>
+            <input class="form-control mb-3 mt-1" type="text" asp-for="lastname" required />
+        </div>
+        <div class="mb-2">
+            <span class="form-label">Unilogin</span>
+            <input class="form-control mb-3 mt-1" type="text" asp-for="unilogin" required />
+        </div>
+        <div class="mb-2">
+            <span class="form-label">Password</span>
+            <input class="form-control mb-3 mt-1" type="password" asp-for="password" required />
+        </div>
+        <div class="mb-2">
+            <span class="form-label">Repeat Password</span>
+            <input class="form-control mb-3 mt-1" type="password" asp-for="password2" required />
+        </div>
+        <div class="medal-footer mt-4 text-center">
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a href="/TeacherSite" type="button" class="btn btn-secondary">Close</a>
+        </div>
+    </div>
+</form>

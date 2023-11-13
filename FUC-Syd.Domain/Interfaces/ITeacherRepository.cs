@@ -10,6 +10,6 @@ namespace FUC_Syd.Domain.Interfaces
     public interface ITeacherRepository : IGenericRepository<Teacher>
     {
         Task<Teacher> GetTeacherByIdAsync(Guid id);
-        Task<Teacher> GetLogin(string email, string password);
+        Task<Teacher> GetTeacherLogin(string email, string password);
     }
 }

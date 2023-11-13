@@ -1,27 +1,51 @@
-﻿using FUC_Syd.Domain.Interfaces;
-using FUC_Syd.Services.DataTransferObjects;
-using FUC_Syd.Services.Interfaces;
+﻿using FUC_Syd.Services.Interfaces;
 using FUC_Syd.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using FUC_Syd.Services.DTO;
+using FUC_Syd.Services.SessionHelper;
+using Azure.Identity;
 
 namespace FUC_Syd.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly ITeacherServices _teacherservices;
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+        public IndexModel(ITeacherServices teacherServices) => _teacherservices = teacherServices;
+
         string successmessage = "";
         string errormessage = "";
+        public string? Status { get; set; }
         [BindProperty]
-        public string username { get; set; }
+        public string Email { get; set; }
         [BindProperty]
-        public string password { get; set; }
+        public string Password { get; set; }
         public Guid userid { get; set; }
+        public async Task<IActionResult> OnPostLogin(string email, string password)
+        {
+        if (ModelState.IsValid)
+            {
+                TeacherDTO? founduser = await _teacherservices.GetTeacherLogin(email.ToLower(), password);
+                if (founduser == null)
+                {
+                    errormessage = "username or password was incorrect";
+                }
+                else if (Email.ToLower() == founduser.Email && Password == founduser.Password)
+                {
+                    HttpContext.Session.SetSessionString(founduser.Email, "email");
+                    return Page();
+                }
+            }
+            return RedirectToPagePermanent("Index", new { status = "ErrUser" });
+        }
+        
+        public IActionResult OnPostLogOut()
+        {
+            HttpContext.Session.Remove("email");
+            return Page();
+        }
+
+
     }
 }

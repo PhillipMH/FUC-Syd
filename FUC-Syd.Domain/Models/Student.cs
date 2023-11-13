@@ -11,6 +11,7 @@ namespace FUC_Syd.Domain.Models
     {
         
         public Guid Id { get; set; }
+        public string unilogin { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string? Phone { get; set; }

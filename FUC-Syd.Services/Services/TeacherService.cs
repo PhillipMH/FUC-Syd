@@ -1,34 +1,47 @@
 ﻿using FUC_Syd.Domain.Interfaces;
 using FUC_Syd.Domain.Models;
-using FUC_Syd.Services.DataTransferObjects;
 using FUC_Syd.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FUC_Syd.Services.DTO;
+using AutoMapper;
+using Azure;
 
 namespace FUC_Syd.Services.Services
 {
-    public class TeacherService : GenericService<TeacherDTO, ITeacherRepository, Teacher>, ITeacherServices
+    public class TeacherService : ITeacherServices
     {
-        private readonly MappingService _mappingService;
         private readonly ITeacherRepository _teacherRepository;
+        private readonly IMapper _mapper;
 
-        public TeacherService(MappingService mappingService, ITeacherRepository teacherRepository) : base(mappingService, teacherRepository)
+        public TeacherService(ITeacherRepository teacherRepository)
         {
-            _mappingService = mappingService;
             _teacherRepository = teacherRepository;
         }
 
-        public async Task<TeacherDTO> GetTeacherAsync(Guid id)
+        public async Task<Teacher> GetTeacherAsync(Guid id)
         {
-            return _mappingService._mapper.Map<TeacherDTO>(await _teacherRepository.GetTeacherByIdAsync(id));
+            return await _teacherRepository.GetTeacherByIdAsync(id);
         }
 
-        public async Task<TeacherDTO> GetTeacherLogin(string username, string password)
+        public async Task<TeacherDTO> GetTeacherLogin(string email, string password)
         {
-            return _mappingService._mapper.Map<TeacherDTO>(await _teacherRepository.GetLogin(username, password));
+            Teacher teacher = await _teacherRepository.GetTeacherLogin(email, password);
+
+            if (teacher != null)
+            {
+                TeacherDTO teacherdto = new(
+                    teacher.Id,
+                    teacher.Email,
+                    teacher.password
+                    );
+                return teacherdto;
+            }
+            else
+            return null;
         }
     }
 }

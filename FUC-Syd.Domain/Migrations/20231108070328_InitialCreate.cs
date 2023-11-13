@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FUC_Syd.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class Created : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace FUC_Syd.Domain.Migrations
                 name: "Parents",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newid()"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -30,7 +30,7 @@ namespace FUC_Syd.Domain.Migrations
                 name: "Teachers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newid()"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -46,7 +46,8 @@ namespace FUC_Syd.Domain.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newid()"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    unilogin = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -67,7 +68,7 @@ namespace FUC_Syd.Domain.Migrations
                 name: "Classes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newid()"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClassName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     teacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -110,7 +111,7 @@ namespace FUC_Syd.Domain.Migrations
                 name: "Grades",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newid()"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     stu_fullnameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     grade = table.Column<int>(type: "int", nullable: false),
                     classidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),

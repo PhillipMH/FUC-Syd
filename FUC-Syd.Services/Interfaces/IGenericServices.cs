@@ -7,14 +7,14 @@ using System.Collections.ObjectModel;
 
 namespace FUC_Syd.Services.Interfaces
 {
-    public interface IGenericServices<DTO> where DTO : class
+    public interface IGenericServices<Entity> where Entity : class
     {
-        Task CreateAsync(DTO entity);
+        Task CreateAsync(Entity entity);
 
-        Task DeleteAsync(DTO entity);
+        Task DeleteAsync(Entity entity);
 
-        Task<ObservableCollection<DTO>> GetAllAsync();
+        Task<ObservableCollection<Entity>> GetAllAsync();
 
-        Task UpdateAsync(DTO entity);
+        Task UpdateAsync(Entity entity);
     }
 }

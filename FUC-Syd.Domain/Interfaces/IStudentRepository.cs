@@ -9,5 +9,6 @@ namespace FUC_Syd.Domain.Interfaces
 {
     public interface IStudentRepository : IGenericRepository<Student>
     {
+        Task<Student> GetStudentLogin(string unilogin, string password);
     }
 }

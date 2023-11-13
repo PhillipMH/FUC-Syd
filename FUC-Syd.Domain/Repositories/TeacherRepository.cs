@@ -1,4 +1,5 @@
-﻿using FUC_Syd.Domain.Data;
+﻿using Azure;
+using FUC_Syd.Domain.Data;
 using FUC_Syd.Domain.Interfaces;
 using FUC_Syd.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -24,13 +25,14 @@ namespace FUC_Syd.Domain.Repositories
         {
             return await _dbcontext.Teachers.Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
         }
-        public async Task<Teacher> GetLogin(string email, string password)
+        public async Task<Teacher> GetTeacherLogin(string email, string password)
         {
             var teacher = await _dbcontext.Teachers
-                .SingleOrDefaultAsync(u => u.Email == email);
+                .SingleOrDefaultAsync(u => u.Email == email && u.password == password);
             if (teacher != null) {
             return teacher;
             }
+            else
             return null;
         }
     }
