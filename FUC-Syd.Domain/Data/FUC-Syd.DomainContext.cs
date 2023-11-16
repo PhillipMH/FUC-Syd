@@ -20,6 +20,8 @@ namespace FUC_Syd.Domain.Data
         public DbSet<Parents> Parents { get; set; } = null!;
         public DbSet<Student> Students { get; set; } = null!;
         public DbSet<Teacher> Teachers { get; set; } = null!;
+        public DbSet<CheckIn> CheckIn { get; set; } = null!;
+        public DbSet<SickLeave> SickLeave { get; set; } = null!;
     }
 
 }

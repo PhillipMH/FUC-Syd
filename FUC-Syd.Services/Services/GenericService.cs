@@ -7,38 +7,43 @@ using System.Threading.Tasks;
 using FUC_Syd.Services.Interfaces;
 using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using FUC_Syd.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FUC_Syd.Services.Services
 {
     public class GenericService : IGenericService
     {
-        private readonly GenericService _genericRepository;
+        private readonly DbContext _genericRepository;
+        public readonly MappingService _mappingService;
 
-        protected GenericService(GenericService genericRepository)
+        protected GenericService(MappingService mappingService, DbContext genericService)
         {
-            _genericRepository = genericRepository;
+            _genericRepository = genericService;
+            _mappingService = mappingService;
         }
 
-        public async Task CreateAsync<Tentity>(Tentity e) where Tentity : class
+        public async Task CreateAsync<Tentity>(Tentity entity) where Tentity : class
         {
-            await _genericRepository.CreateAsync(e);
+            _genericRepository.Add(_mappingService._mapper.Map<Tentity>(entity));
         }
 
-        public async Task DeleteAsync<Tentity>(Tentity e) where Tentity : class
+        public async Task DeleteAsync<Tentity>(Tentity entity)
         {
-            await _genericRepository.DeleteAsync(e);
+            _genericRepository.Remove((_mappingService._mapper.Map<Tentity>(entity)));
+            _genericRepository.SaveChanges();
         }
 
-        public async Task<ObservableCollection<dynamic>> GetAllAsync()
+        public List<object> GetTentities(object entity)
         {
-            var entities = await _genericRepository.GetAllAsync();
-            var observableCollection = new ObservableCollection<dynamic>(entities);
-            return observableCollection;
+
+            return _genericRepository.Set<object>().ToList();
         }
 
-        public async Task UpdateAsync<Tentity>(Tentity e) where Tentity : class
+        public async Task UpdateAsync<Tentity>(Tentity entity)
         {
-            await _genericRepository.UpdateAsync(e);
+            _genericRepository.Update(_mappingService._mapper.Map<Tentity>(entity));
         }
     }
 

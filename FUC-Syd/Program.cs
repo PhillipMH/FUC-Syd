@@ -8,6 +8,8 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Microsoft.EntityFrameworkCore;
 using FUC_Syd.Domain.Interfaces;
 using FUC_Syd.Domain.Repositories;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using FUC_Syd.Services.DTO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,12 @@ builder.Services.AddScoped<ITeacherServices, TeacherService>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ICheckInRepository, CheckInRepository>();
+builder.Services.AddScoped<ICheckInServices, CheckInService>();
+builder.Services.AddTransient<List<StudentDTO>>();
+builder.Services.AddTransient<List<CheckInDTO>>();
+
+
 
 builder.Services.AddSession(options =>
 {

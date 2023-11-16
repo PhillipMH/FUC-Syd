@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace FUC_Syd.Domain.Interfaces
 {
-    public interface IGenericRepository<Entity> where Entity : class
+    public interface IGenericRepository<T> where T : class
     {
-        Task CreateAsync(Entity entity);
+        Task CreateAsync(T entity);
 
-        Task UpdateAsync(Entity entity);
+        Task UpdateAsync(T entity);
 
-        Task DeleteAsync(Entity entity);
+        Task DeleteAsync(T entity);
 
-        Task<ObservableCollection<Entity>> GetAllAsync();
+        Task<ObservableCollection<T>> GetAllAsync();
     }
 }

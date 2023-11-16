@@ -22,11 +22,12 @@ namespace FUC_Syd.Pages
         [BindProperty]
         public string Password { get; set; }
         public Guid userid { get; set; }
-        public async Task<IActionResult> OnPostLogin(string email, string password)
+        public bool IsAdmin { get; } = true;
+        public async Task<IActionResult> OnPostLogin(string email, string password, bool isadmin)
         {
         if (ModelState.IsValid)
             {
-                TeacherDTO? founduser = await _teacherservices.GetTeacherLogin(email.ToLower(), password);
+                TeacherDTO? founduser = await _teacherservices.GetTeacherLogin(email.ToLower(), password, isadmin);
                 if (founduser == null)
                 {
                     errormessage = "username or password was incorrect";
@@ -34,7 +35,8 @@ namespace FUC_Syd.Pages
                 else if (Email.ToLower() == founduser.Email && Password == founduser.Password)
                 {
                     HttpContext.Session.SetSessionString(founduser.Email, "email");
-                    return Page();
+                    HttpContext.Session.SetSessionString(founduser.IsAdmin.ToString(), "isadmin");
+                    return RedirectToPage("/TeacherSite");
                 }
             }
             return RedirectToPagePermanent("Index", new { status = "ErrUser" });

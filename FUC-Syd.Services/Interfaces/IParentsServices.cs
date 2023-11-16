@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FUC_Syd.Services.Interfaces
 {
-    public interface IParentsServices : IGenericServices<Parents>
+    public interface IParentsServices : IGenericService 
     {
     }
 }

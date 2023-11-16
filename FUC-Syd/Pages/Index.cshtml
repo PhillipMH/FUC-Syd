@@ -49,12 +49,7 @@
 }
 @if (!string.IsNullOrWhiteSpace(HttpContext.Session.GetString("email")))
 {
-<center>
-<p>Hello @Model.Email</p>
-<form asp-page-handler="logout"  method="post">
-<button type="submit">Logout</button>
-</form>
-</center>
+    
 }
 <script>
     document.addEventListener('DOMContentLoaded', function () {

@@ -11,12 +11,17 @@ namespace FUC_Syd.Services.DTO
         public Guid Id { get; set; }
         public string Unilogin { get; set; }
         public string Password { get; set; }
-        public StudentDTO(Guid id, string unilogin, string password) 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool IsAdmin { get; set; } = false; // Add setter and default value
+
+        public StudentDTO(Guid id, string unilogin, string firstname, string lastname, string password)
         {
-        Id = id;
-        Unilogin = unilogin;
-        Password = password;
-        
-        } 
+            Id = id;
+            Unilogin = unilogin;
+            FirstName = firstname;
+            LastName = lastname;
+            Password = password;
+        }
     }
 }

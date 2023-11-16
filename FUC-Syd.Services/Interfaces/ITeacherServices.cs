@@ -13,6 +13,6 @@ namespace FUC_Syd.Services.Interfaces
     public interface ITeacherServices
     {
         Task<Teacher> GetTeacherAsync(Guid id);
-        Task<TeacherDTO>? GetTeacherLogin(string email, string password);
+        Task<TeacherDTO>? GetTeacherLogin(string email, string password, bool isadmin);
     }
 }

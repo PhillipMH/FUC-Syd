@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FUC_Syd.Domain.Repositories
 {
-    public abstract class GenericRepository<E> : IGenericRepository<E> where E : class
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly FUC_SydContext _dbcontext;
 
@@ -19,23 +19,23 @@ namespace FUC_Syd.Domain.Repositories
             _dbcontext = dbcontex;
         }
 
-        public async Task CreateAsync(E entity)
+        public async Task CreateAsync(T entity)
         {
             _dbcontext.Add(entity);
             await _dbcontext.SaveChangesAsync();
         }
-        public async Task UpdateAsync(E entity)
+        public async Task UpdateAsync(T entity)
         {
-            _dbcontext.Set<E>().Attach(entity);
+            _dbcontext.Set<T>().Attach(entity);
             _dbcontext.Entry(entity).State = EntityState.Modified;
             await _dbcontext.SaveChangesAsync();
         }
-        public async Task<ObservableCollection<E>> GetAllAsync()
+        public async Task<ObservableCollection<T>> GetAllAsync()
         {
-            ObservableCollection<E> temp = new(await _dbcontext.Set<E>().AsNoTracking().ToListAsync());
+            ObservableCollection<T> temp = new(await _dbcontext.Set<T>().AsNoTracking().ToListAsync());
             return temp;
         }
-        public async Task DeleteAsync(E entity)
+        public async Task DeleteAsync(T entity)
         {
             _dbcontext.Remove(entity);
             await _dbcontext.SaveChangesAsync();

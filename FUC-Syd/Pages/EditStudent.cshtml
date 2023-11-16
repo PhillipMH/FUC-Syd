@@ -1,0 +1,56 @@
+﻿@page
+@model FUC_Syd.Pages.EditStudentModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, button {
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Edit Student</h2>
+
+    <form method="post" asp-page-handler="SaveEditedStudent">
+        <!-- Hidden field for student ID -->
+        <input type="hidden" asp-for="@Model.Student.Id" />
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" asp-for="@Model.Student.FirstName" value="@Model.firstname" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" asp-for="@Model.Student.LastName" value="@Model.lastname" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" asp-for="@Model.Student.Password" value="@Model.password" required>
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <form method="post" asp-page-handler="DeleteStudent">
+        <!-- Hidden field for student ID -->
+        <input type="hidden" asp-for="@Model.Student.Id" />
+
+        <button type="submit">Delete Student</button>
+    </form>
+
+</body>
+</html>

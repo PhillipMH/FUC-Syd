@@ -2,4 +2,56 @@
 @model TeacherSiteModel
 @{
 }
+@if (!string.IsNullOrWhiteSpace(HttpContext.Session.GetString("isadmin")))
+{
+    <h1>TeacherSite</h1>
+}
 
+<p>
+    <a asp-page="./SickLeave">Create Sick Leave for student</a> |
+    <a asp-page="./CheckIn">Create Check In for student</a> |
+    <a asp-page="./AddStudent">Create a new Student</a>
+</p>
+@if (Model.SickLeaves is not null || Model.CheckIns is not null)
+{
+<table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Reason/Time</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (Model.SickLeaves is not null)
+            {
+                @foreach (var sickLeave in Model.SickLeaves)
+                {
+                    <tr>
+                        <td>@sickLeave.Id</td>
+                        <td>@sickLeave.Name</td>
+                        <td>@sickLeave.Reason</td>
+                        <td>Sick leave</td>
+                    </tr>
+                }
+            }
+            @if (Model.CheckIns is not null) 
+            {
+                @foreach (var checkIn in Model.CheckIns)
+                {
+                    <tr>
+                        <td>@checkIn.Id</td>
+                        <td>@checkIn.Name</td>
+                        <td>@checkIn.Time</td>
+                        <td>Check in</td>
+                    </tr>
+                }
+            }
+            </tbody>
+    </table>
+}
+else
+{
+<p>no records found</p>
+}

@@ -37,6 +37,29 @@ namespace FUC_Syd.Domain.Migrations
                     b.ToTable("ClassesStudent");
                 });
 
+            modelBuilder.Entity("FUC_Syd.Domain.Models.CheckIn", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("CheckIn");
+                });
+
             modelBuilder.Entity("FUC_Syd.Domain.Models.Classes", b =>
                 {
                     b.Property<Guid>("Id")
@@ -111,6 +134,30 @@ namespace FUC_Syd.Domain.Migrations
                     b.ToTable("Parents");
                 });
 
+            modelBuilder.Entity("FUC_Syd.Domain.Models.SickLeave", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("SickLeave");
+                });
+
             modelBuilder.Entity("FUC_Syd.Domain.Models.Student", b =>
                 {
                     b.Property<Guid>("Id")
@@ -130,6 +177,12 @@ namespace FUC_Syd.Domain.Migrations
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isadmin")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("parents")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("password")
                         .IsRequired()
@@ -168,6 +221,9 @@ namespace FUC_Syd.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("isadmin")
+                        .HasColumnType("bit");
+
                     b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -190,6 +246,17 @@ namespace FUC_Syd.Domain.Migrations
                         .HasForeignKey("studentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FUC_Syd.Domain.Models.CheckIn", b =>
+                {
+                    b.HasOne("FUC_Syd.Domain.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("FUC_Syd.Domain.Models.Classes", b =>
@@ -220,6 +287,17 @@ namespace FUC_Syd.Domain.Migrations
                     b.Navigation("classid");
 
                     b.Navigation("stu_fullname");
+                });
+
+            modelBuilder.Entity("FUC_Syd.Domain.Models.SickLeave", b =>
+                {
+                    b.HasOne("FUC_Syd.Domain.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("FUC_Syd.Domain.Models.Student", b =>

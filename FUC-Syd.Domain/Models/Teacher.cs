@@ -16,5 +16,6 @@ namespace FUC_Syd.Domain.Models
         public string Phone { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string password { get; set; } = null!;
+        public bool isadmin { get; set; } = true;
     }
 }

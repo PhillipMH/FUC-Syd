@@ -25,7 +25,7 @@ namespace FUC_Syd.Domain.Repositories
         {
             return await _dbcontext.Teachers.Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
         }
-        public async Task<Teacher> GetTeacherLogin(string email, string password)
+        public async Task<Teacher> GetTeacherLogin(string email, string password, bool isadmin)
         {
             var teacher = await _dbcontext.Teachers
                 .SingleOrDefaultAsync(u => u.Email == email && u.password == password);

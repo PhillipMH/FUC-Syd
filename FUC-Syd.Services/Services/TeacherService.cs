@@ -27,16 +27,17 @@ namespace FUC_Syd.Services.Services
             return await _teacherRepository.GetTeacherByIdAsync(id);
         }
 
-        public async Task<TeacherDTO> GetTeacherLogin(string email, string password)
+        public async Task<TeacherDTO> GetTeacherLogin(string email, string password, bool isadmin)
         {
-            Teacher teacher = await _teacherRepository.GetTeacherLogin(email, password);
+            Teacher teacher = await _teacherRepository.GetTeacherLogin(email, password, isadmin);
 
             if (teacher != null)
             {
                 TeacherDTO teacherdto = new(
                     teacher.Id,
                     teacher.Email,
-                    teacher.password
+                    teacher.password,
+                    teacher.isadmin
                     );
                 return teacherdto;
             }

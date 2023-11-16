@@ -22,6 +22,8 @@ namespace FUC_Syd.Services.Services
                 cfg.CreateMap<TeacherDTO, Teacher>();
                 cfg.CreateMap<Student, StudentDTO>();
                 cfg.CreateMap<StudentDTO, Student>();
+                cfg.CreateMap<CheckIn, CheckInDTO>();
+                cfg.CreateMap<CheckInDTO, CheckIn>();
             });
 
             try
@@ -40,6 +42,10 @@ namespace FUC_Syd.Services.Services
         public StudentDTO MapStudentToDTO(Student student)
         {
             return _mapper.Map<StudentDTO>(student);
+        }
+        public CheckInDTO MapCheckinToDTO(CheckInDTO checkin)
+        {
+            return _mapper.Map<CheckInDTO>(checkin);
         }
 
     }

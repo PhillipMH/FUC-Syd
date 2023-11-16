@@ -1,4 +1,5 @@
 ﻿using FUC_Syd.Domain.Models;
+using FUC_Syd.Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace FUC_Syd.Services.Interfaces
 {
-    public interface IGradesServices : IGenericService
+    public interface ICheckInServices
     {
+        Task<StudentDTO> Checkin(Student Id, string name, DateTime time);
+        Task<List<CheckInDTO>> GetStudentsCheckedIn();
     }
 }

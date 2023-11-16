@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FUC_Syd.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class ifitdontworkimkillingmyself : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace FUC_Syd.Domain.Migrations
                 name: "Parents",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -30,12 +30,13 @@ namespace FUC_Syd.Domain.Migrations
                 name: "Teachers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isadmin = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,29 +47,26 @@ namespace FUC_Syd.Domain.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     unilogin = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isadmin = table.Column<bool>(type: "bit", nullable: false),
+                    parents = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ParentsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Students_Parents_ParentsId",
-                        column: x => x.ParentsId,
-                        principalTable: "Parents",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Classes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     ClassName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     teacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -79,6 +77,46 @@ namespace FUC_Syd.Domain.Migrations
                         name: "FK_Classes_Teachers_teacherId",
                         column: x => x.teacherId,
                         principalTable: "Teachers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CheckIn",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CheckIn", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CheckIn_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SickLeave",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SickLeave", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SickLeave_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -111,7 +149,7 @@ namespace FUC_Syd.Domain.Migrations
                 name: "Grades",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     stu_fullnameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     grade = table.Column<int>(type: "int", nullable: false),
                     classidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -135,6 +173,11 @@ namespace FUC_Syd.Domain.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CheckIn_StudentId",
+                table: "CheckIn",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Classes_teacherId",
                 table: "Classes",
                 column: "teacherId");
@@ -155,6 +198,11 @@ namespace FUC_Syd.Domain.Migrations
                 column: "stu_fullnameId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SickLeave_StudentId",
+                table: "SickLeave",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Students_ParentsId",
                 table: "Students",
                 column: "ParentsId");
@@ -164,10 +212,16 @@ namespace FUC_Syd.Domain.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CheckIn");
+
+            migrationBuilder.DropTable(
                 name: "ClassesStudent");
 
             migrationBuilder.DropTable(
                 name: "Grades");
+
+            migrationBuilder.DropTable(
+                name: "SickLeave");
 
             migrationBuilder.DropTable(
                 name: "Classes");
